@@ -31,6 +31,8 @@ cask "aivis-speech" do
   zap trash: [
     "~/Library/Application Support/AivisSpeech",
     "~/Library/Application Support/AivisSpeech-Engine",
+    "~/Library/Logs/AivisSpeech",
+    "~/Library/Preferences/com.aivis-project.aivisspeech.plist",
     "~/Library/Saved Application State/com.aivis-project.aivisspeech.savedState",
   ]
 end
