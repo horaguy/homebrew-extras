@@ -2,7 +2,7 @@ name: Update Homebrew Casks
 
 on:
   schedule:
-    - cron: '0 0 * * 1' # every Monday at midnight
+    - cron: '0 0 */3 * *' # every 3 days at midnight
   workflow_dispatch:
 
 jobs:
