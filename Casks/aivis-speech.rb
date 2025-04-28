@@ -1,6 +1,6 @@
 cask "aivis-speech" do
-  version "1.1.0-preview.3"
-  sha256 "01d14fc1b34dea889d1a47465dcce38d96dba580b49d4b6cecd5332dc30b2142"
+  version "1.1.0-preview.4"
+  sha256 "b072c324811049cdffe7f5cb2c0d1f3911c5afaaaf864a9566e011cd13ae2b16"
 
   url "https://github.com/Aivis-Project/AivisSpeech/releases/download/#{version}/AivisSpeech-macOS-arm64-#{version}.dmg",
       verified: "github.com/"
