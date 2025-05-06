@@ -9,7 +9,7 @@ class Sakuramml < Formula
   depends_on "rust" => :build
 
   def install
-    system "cargo", "install", "--path", ".", "--root", prefix
+    system "cargo", "install", *std_cargo_args
   end
 
   test do
