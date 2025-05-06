@@ -16,10 +16,8 @@ class Picosakura < Formula
     bin.install "picosakura"
     bin.install "mml2wav"
     lib.install "libpicosakura.dylib"
-    
-    # Install soundfonts and create a symbolic link
     pkgshare.install "fonts"
-    (bin/"fonts").make_symlink "#{pkgshare}/fonts"
+    # (bin/"fonts").make_symlink "#{pkgshare}/fonts"
   end
 
   test do
