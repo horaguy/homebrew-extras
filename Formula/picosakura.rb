@@ -12,10 +12,10 @@ class Picosakura < Formula
   end
 
   def install
-    bin.install "picosakura-pack/picosakura"
-    bin.install "picosakura-pack/mml2wav"
-    lib.install "picosakura-pack/libpicosakura.dylib"
-    pkgshare.install "picosakura-pack/fonts"
+    bin.install "picosakura"
+    bin.install "mml2wav"
+    lib.install "libpicosakura.dylib"
+    pkgshare.install "fonts"
   end
 
   test do
