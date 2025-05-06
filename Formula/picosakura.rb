@@ -12,8 +12,28 @@ class Picosakura < Formula
   end
 
   def install
-    bin.install "picosakura"
-    bin.install "mml2wav"
+    # Save original binaries
+    original_binary = "picosakura"
+    original_mml2wav = "mml2wav"
+    
+    # Create wrapper scripts
+    (bin/"picosakura").write <<~EOS
+      #!/bin/bash
+      cd "#{pkgshare}"
+      exec "#{pkgshare}/#{original_binary}" "$@"
+    EOS
+    (bin/"picosakura").chmod 0755
+
+    (bin/"mml2wav").write <<~EOS
+      #!/bin/bash
+      cd "#{pkgshare}"
+      exec "#{pkgshare}/#{original_mml2wav}" "$@"
+    EOS
+    (bin/"mml2wav").chmod 0755
+
+    # Move original files to pkgshare
+    pkgshare.install original_binary
+    pkgshare.install original_mml2wav
     lib.install "libpicosakura.dylib"
     pkgshare.install "fonts"
   end
