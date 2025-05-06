@@ -1,8 +1,8 @@
 class Picosakura < Formula
   desc "MML Compiler Sakura - picosakura player rust version"
   homepage "https://github.com/kujirahand/picosakura-rust"
-  url "https://github.com/kujirahand/picosakura-rust/archive/refs/tags/v0.1.37.tar.gz"
-  sha256 "fb94c12f5466fa2a1e9e375a0da3655c40fd3852e3fa4cd6bf909d0b38ce4849"
+  url "https://github.com/kujirahand/picosakura-rust/releases/download/0.1.37/mac-picosakura-pack.zip"
+  sha256 "f1dc979fd30d0becc948227a267106a1226e4b25e02d311f9b744d88088fd836"
   license "MIT"
   head "https://github.com/kujirahand/picosakura-rust.git", branch: "main"
 
@@ -11,10 +11,11 @@ class Picosakura < Formula
     strategy :github_latest
   end
 
-  depends_on "rust" => :build
-
   def install
-    system "cargo", "install", *std_cargo_args
+    bin.install "picosakura-pack/picosakura"
+    bin.install "picosakura-pack/mml2wav"
+    lib.install "picosakura-pack/libpicosakura.dylib"
+    pkgshare.install "picosakura-pack/fonts"
   end
 
   test do
