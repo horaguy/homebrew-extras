@@ -12,12 +12,11 @@ class Picosakura < Formula
   end
 
   def install
-    # Install binaries
     bin.install "picosakura"
     bin.install "mml2wav"
     lib.install "libpicosakura.dylib"
-    pkgshare.install "fonts"
-    # (bin/"fonts").make_symlink "#{pkgshare}/fonts"
+    lib.install "fonts"
+    # pkgshare.install "fonts" is not working
   end
 
   test do
