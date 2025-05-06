@@ -12,10 +12,17 @@ class Picosakura < Formula
   end
 
   def install
-    bin.install "picosakura"
+    libexec.install "picosakura"
     bin.install "mml2wav"
     lib.install "libpicosakura.dylib"
     pkgshare.install "fonts"
+
+    # Wrapper script to add the default font path
+    (bin/"picosakura").write <<~EOS
+      #!/bin/bash
+      exec "#{libexec}/picosakura" -s "#{pkgshare}/fonts/TimGM6mb.sf2" "$@"
+    EOS
+    chmod 0755, bin/"picosakura"
   end
 
   test do
