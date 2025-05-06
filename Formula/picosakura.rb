@@ -15,8 +15,7 @@ class Picosakura < Formula
     bin.install "picosakura"
     bin.install "mml2wav"
     lib.install "libpicosakura.dylib"
-    lib.install "fonts"
-    # pkgshare.install "fonts" is not working
+    pkgshare.install "fonts"
   end
 
   test do
