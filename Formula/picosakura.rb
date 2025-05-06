@@ -13,7 +13,7 @@ class Picosakura < Formula
 
   def install
     libexec.install "picosakura"
-    bin.install "mml2wav"
+    libexec.install "mml2wav"
     lib.install "libpicosakura.dylib"
     pkgshare.install "fonts"
 
@@ -23,6 +23,11 @@ class Picosakura < Formula
       exec "#{libexec}/picosakura" -s "#{pkgshare}/fonts/TimGM6mb.sf2" "$@"
     EOS
     chmod 0755, bin/"picosakura"
+    (bin/"mml2wav").write <<~EOS
+      #!/bin/bash
+      exec "#{libexec}/mml2wav" -s "#{pkgshare}/fonts/TimGM6mb.sf2" "$@"
+    EOS
+    chmod 0755, bin/"mml2wav"
   end
 
   test do
