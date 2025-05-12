@@ -15,4 +15,4 @@ class Sakuramml < Formula
   test do
     system "#{bin}/sakuramml", "--help"
   end
-end 
+end
