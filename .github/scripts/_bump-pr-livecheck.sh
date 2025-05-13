@@ -5,8 +5,7 @@
 PACKAGE=$1
 FULL_PKG_NAME="$(brew tap)/$1"
 CASK_FLAG=$2
-echo "CASK_FLAG: $CASK_FLAG"
-
+echo "CASK_FLAG(in _bump-pr-livecheck): $CASK_FLAG"
 
 JSON=$(brew livecheck --json "$FULL_PKG_NAME")
 CURRENT_VERSION=$(echo "$JSON" | jq -r '.[0].version.current')
