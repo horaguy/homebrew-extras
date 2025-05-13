@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-# Usage: bump-formula.sh <package> [version]
+# Usage: bump-formula.sh <package> [latest_version]
 
-.github/scripts/bump-pr.sh "$1" "$2"
+if [ -z "$2" ]; then
+  .github/scripts/bump-pr-livecheck.sh "$1"
+else
+  .github/scripts/bump-pr.sh "$1" "$2"
+fi

@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 
-# Usage: bump-pr.sh <package> <latest_version> [--cask]
+# Usage: bump-pr-livecheck.sh <package> [--cask]
 
 PACKAGE=$1
 FULL_PKG_NAME="$(brew tap)/$1"
-LATEST_VERSION=$2
-CASK_FLAG=$3
+CASK_FLAG=$2
 
-CURRENT_VERSION=$(brew info --json=v2 "$FULL_PKG_NAME" | jq -r '(.formulae[]?.versions.stable, .casks[]?.version) // empty | select(. != "")')
+JSON=$(brew livecheck --json "$FULL_PKG_NAME")
+CURRENT_VERSION=$(echo "$JSON" | jq -r '.[0].version.current')
+LATEST_VERSION=$(echo "$JSON" | jq -r '.[0].version.latest')
 echo "CURRENT_VERSION: $CURRENT_VERSION"
 echo "LATEST_VERSION: $LATEST_VERSION"
 [ -z "$CURRENT_VERSION" ] && echo "Current version is not found" && exit 1
-[ -z "$LATEST_VERSION" ] && echo "Latest version is required" && exit 1
+[ -z "$LATEST_VERSION" ] && echo "Latest version is not found" && exit 1
 if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
   echo "$FULL_PKG_NAME is already up to date"
   exit 0
