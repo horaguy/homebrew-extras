@@ -24,9 +24,9 @@ jobs:
       - name: Bump regular formula
         run: |
           FORMULAS=(
-            "codegpt"
             "picosakura"
             "sakuramml"
+            "codegpt"
           )
           for formula in "${FORMULAS[@]}"; do
             .github/scripts/bump-formula.sh "$formula"
