@@ -6,9 +6,8 @@ PACKAGE=$1
 FULL_PKG_NAME="$(brew tap)/$1"
 LATEST_VERSION=$2
 CASK_FLAG=$3
-echo "CASK_FLAG(in _bump-pr): $CASK_FLAG"
 
-CURRENT_VERSION=$(brew info --json=v2 "$FULL_PKG_NAME" | jq -r '(.formulae[]?.versions.stable, .casks[]?.version) // empty | select(. != "")')
+CURRENT_VERSION=$(brew info --json=v2 "$CASK_FLAG" "$FULL_PKG_NAME" | jq -r '(.formulae[]?.versions.stable, .casks[]?.version) // empty | select(. != "")')
 echo "CURRENT_VERSION: $CURRENT_VERSION"
 echo "LATEST_VERSION: $LATEST_VERSION"
 [ -z "$CURRENT_VERSION" ] && echo "Current version is not found" && exit 1
