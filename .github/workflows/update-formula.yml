@@ -1,4 +1,4 @@
-name: Update Homebrew Casks
+name: Update Homebrew Formula
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-casks:
+  update-formula:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -14,25 +14,20 @@ jobs:
       pull-requests: write
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # In GitHub Actions, 'brew bump-cask-pr' requires HOMEBREW_GITHUB_API_TOKEN 
+      # In GitHub Actions, 'brew bump-formula-pr' requires HOMEBREW_GITHUB_API_TOKEN 
       HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
       - uses: ./.github/actions/configure-git
-      - uses: ./.github/actions/install-playwright
-      # Bump casks
       - run: brew tap horaguy/extras
-      # Bump regular casks
-      - name: Bump regular casks
+      - name: Bump regular formula
         run: |
-          CASKS=(
-            "xppen"
-            "huion-k20"
-            "aivis-speech"
+          FORMULAS=(
+            "codegpt"
+            "picosakura"
+            "sakuramml"
           )
-          for cask in "${CASKS[@]}"; do
-            .github/scripts/bump-cask.sh "$cask"
+          for formula in "${FORMULAS[@]}"; do
+            .github/scripts/bump-formula.sh "$formula"
           done
-      # Bump special casks
-      - run: .github/scripts/bump-cask.sh tourbox-console $(node .github/scripts/tourbox-console-version.js)

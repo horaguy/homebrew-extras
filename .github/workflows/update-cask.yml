@@ -1,0 +1,36 @@
+name: Update Homebrew Cask
+
+on:
+  schedule:
+    - cron: '0 0 */3 * *' # every 3 days at midnight
+  workflow_dispatch:
+
+jobs:
+  update-casks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      # Also "Allow GitHub Actions to create and approve pull requests" is required on the repository settings
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # In GitHub Actions, 'brew bump-cask-pr' requires HOMEBREW_GITHUB_API_TOKEN 
+      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
+      - uses: ./.github/actions/configure-git
+      - uses: ./.github/actions/install-playwright
+      - run: brew tap horaguy/extras
+      - name: Bump regular cask
+        run: |
+          CASKS=(
+            "xppen"
+            "huion-k20"
+            "aivis-speech"
+          )
+          for cask in "${CASKS[@]}"; do
+            .github/scripts/bump-cask.sh "$cask"
+          done
+      # Bump special casks
+      - run: .github/scripts/bump-cask.sh tourbox-console $(node .github/scripts/tourbox-console-version.js)
