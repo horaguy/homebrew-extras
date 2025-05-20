@@ -6,9 +6,7 @@ cask "neuralnote" do
   name "NeuralNote"
   desc "Audio Plugin for Audio to MIDI transcription using deep learning"
   homepage "https://github.com/DamRsn/NeuralNote"
-
-  app "NeuralNote.app"
-
+  
   # # Remove quarantine attribute to allow unsigned app to run without security warnings
   # postflight do
   #   system_command "/usr/bin/xattr",
