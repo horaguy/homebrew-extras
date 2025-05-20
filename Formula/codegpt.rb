@@ -7,9 +7,8 @@ class Codegpt < Formula
   version "1.1.0"
 
   sha256 "7d29ed1b7a8cfa2ac9377a7a8cf8a2856bebbedc014c095c09894a09aae0cdce"
-  depends_on "git"
-  depends_on "xz"
-  depends_on "zsh" => :optional
+  # depends_on "git"
+  # depends_on "xz"
 
   def install
     filename = "CodeGPT-#{version}-darwin-arm64"
