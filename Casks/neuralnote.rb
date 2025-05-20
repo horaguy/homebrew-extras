@@ -9,14 +9,14 @@ cask "neuralnote" do
 
   pkg "NeuralNote_Installer_Mac.pkg"
 
-  uninstall launchctl: "com.damrsn.NeuralNote",
-            quit:      "com.damrsn.NeuralNote",
-            pkgutil:   "com.damrsn.NeuralNote"
+  uninstall launchctl: "com.draudio.neuralnote",
+            quit:      "com.draudio.neuralnote",
+            pkgutil:   "com.draudio.neuralnote"
 
   zap trash: [
     "~/Library/Application Support/NeuralNote",
     "~/Library/Logs/NeuralNote",
-    "~/Library/Preferences/com.damrsn.neuralnote.plist",
-    "~/Library/Saved Application State/com.damrsn.neuralnote.savedState"
+    "~/Library/Preferences/com.draudio.neuralnote.plist",
+    "~/Library/Saved Application State/com.draudio.neuralnote.savedState"
   ]
 end
