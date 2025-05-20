@@ -6,22 +6,17 @@ cask "neuralnote" do
   name "NeuralNote"
   desc "Audio Plugin for Audio to MIDI transcription using deep learning"
   homepage "https://github.com/DamRsn/NeuralNote"
-  
-  # # Remove quarantine attribute to allow unsigned app to run without security warnings
-  # postflight do
-  #   system_command "/usr/bin/xattr",
-  #                  args: ["-d", "com.apple.quarantine", "#{staged_path}/AivisSpeech.app"],
-  #                  sudo: true
-  # end
 
-  uninstall launchctl: "com.neuralnote.NeuralNote",
-            quit:      "com.neuralnote.NeuralNote",
-            pkgutil:   "com.neuralnote.NeuralNote"
+  pkg "NeuralNote_Installer_Mac.pkg"
+
+  uninstall launchctl: "com.damrsn.NeuralNote",
+            quit:      "com.damrsn.NeuralNote",
+            pkgutil:   "com.damrsn.NeuralNote"
 
   zap trash: [
     "~/Library/Application Support/NeuralNote",
     "~/Library/Logs/NeuralNote",
-    "~/Library/Preferences/com.neuralnote.NeuralNote.plist",
-    "~/Library/Saved Application State/com.neuralnote.NeuralNote.savedState",
+    "~/Library/Preferences/com.damrsn.neuralnote.plist",
+    "~/Library/Saved Application State/com.damrsn.neuralnote.savedState"
   ]
 end
