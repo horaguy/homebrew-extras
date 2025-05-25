@@ -22,11 +22,4 @@ cask "melodyne" do
               executable: "/Applications/Melodyne 5/Melodyne Uninstaller.app/Contents/MacOS/Melodyne Uninstaller",
               sudo:      true,
             }
-
-  zap trash: [
-    "~/Library/Application Support/Melodyne",
-    "~/Library/Preferences/com.celemony.melodyne.*",
-    "~/Library/Saved Application State/com.celemony.melodyne.savedState",
-    "~/Library/Logs/Melodyne",
-  ]
 end
