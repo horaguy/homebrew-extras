@@ -25,9 +25,10 @@ jobs:
       - name: Bump regular cask
         run: |
           CASKS=(
-            "xppen"
-            "huion-k20"
             "aivis-speech"
+            "huion-k20"
+            "neuralnote"
+            "xppen"
           )
           for cask in "${CASKS[@]}"; do
             .github/scripts/bump-cask.sh "$cask"
