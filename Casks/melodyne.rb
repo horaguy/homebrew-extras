@@ -17,7 +17,11 @@ cask "melodyne" do
   app "Melodyne.app"
 
   uninstall launchctl: "com.celemony.melodyne",
-            quit:      "com.celemony.melodyne"
+            quit:      "com.celemony.melodyne",
+            script:    {
+              executable: "/Applications/Melodyne 5/Melodyne Uninstaller.app/Contents/MacOS/Melodyne Uninstaller",
+              sudo:      true,
+            }
 
   zap trash: [
     "~/Library/Application Support/Melodyne",
