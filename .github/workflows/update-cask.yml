@@ -27,6 +27,7 @@ jobs:
           CASKS=(
             "aivis-speech"
             "huion-k20"
+            "melodyne"
             "neuralnote"
             "xppen"
           )
