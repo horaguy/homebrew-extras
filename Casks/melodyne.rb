@@ -14,7 +14,7 @@ cask "melodyne" do
 
   depends_on macos: ">= :sierra"
 
-  app "Melodyne.app"
+  pkg "Melodyne.#{version}.pkg"
 
   uninstall launchctl: "com.celemony.melodyne",
             quit:      "com.celemony.melodyne",
