@@ -20,19 +20,11 @@ jobs:
       - uses: actions/checkout@v4
       - run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
       - uses: ./.github/actions/configure-git
-      - uses: ./.github/actions/install-playwright
       - run: brew tap horaguy/extras
-      - name: Bump regular cask
+      - name: Bump all casks
         run: |
-          CASKS=(
-            "aivis-speech"
-            "huion-k20"
-            "melodyne"
-            "neuralnote"
-            "xppen"
-          )
-          for cask in "${CASKS[@]}"; do
+          for cask_file in Casks/*.rb; do
+            cask=$(basename "$cask_file" .rb)
             .github/scripts/bump-cask.sh "$cask"
           done
-      # Bump special casks
-      - run: .github/scripts/bump-cask.sh tourbox-console $(node .github/scripts/tourbox-console-version.js)
+          

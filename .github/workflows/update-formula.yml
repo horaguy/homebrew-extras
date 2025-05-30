@@ -21,13 +21,9 @@ jobs:
       - run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
       - uses: ./.github/actions/configure-git
       - run: brew tap horaguy/extras
-      - name: Bump regular formula
+      - name: Bump all formulas
         run: |
-          FORMULAS=(
-            "picosakura"
-            "sakuramml"
-            "codegpt"
-          )
-          for formula in "${FORMULAS[@]}"; do
+          for formula_file in Formula/*.rb; do
+            formula=$(basename "$formula_file" .rb)
             .github/scripts/bump-formula.sh "$formula"
           done
