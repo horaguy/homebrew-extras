@@ -3,9 +3,9 @@
 class Codegpt < Formula
   desc "CLI tool that writes git commit messages using ChatGPT AI"
   homepage "https://github.com/appleboy/CodeGPT"
-  url "https://github.com/appleboy/CodeGPT/releases/download/v1.1.1/CodeGPT-1.1.1-darwin-arm64.xz"
-  version "1.1.1"
-  sha256 "d2c34522ce1ca058be98c16b8c346f0feb31c25ba0d232c1acbd1eae0e283829"
+  url "https://github.com/appleboy/CodeGPT/releases/download/v1.2.1/CodeGPT-1.2.1-darwin-arm64.xz"
+  version "1.2.1"
+  sha256 "3d7fcf87fe63adcf7ae745468634ff9fbc49d42d5767c92b2c181c53691cf4f1"
 
   def install
     filename = "CodeGPT-#{version}-darwin-arm64"
