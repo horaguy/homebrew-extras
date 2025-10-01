@@ -1,6 +1,6 @@
 cask "xppen" do
-  version "4.0.8_250414,2025,04"
-  sha256 "c792fc0c5df8c38b75267d302d0c3ced49371ac7be73998875279bc627dad3ca"
+  version "4.0.12_250926,2025,09"
+  sha256 "816e8342b33e0a8901056234ab0765eb0e0b49f3a386b68b7635ca305542cff7"
 
   url "https://download01.xp-pen.com/file/#{version.csv.second}/#{version.csv.third}/XPPenMac_#{version.csv.first}.zip",
       verified: "download01.xp-pen.com/"
