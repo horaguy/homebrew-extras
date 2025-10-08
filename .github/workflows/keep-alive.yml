@@ -17,8 +17,8 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: Switch to keepalive branch (if not exists, create it)
-        run: git switch keepalive 2>/dev/null || git switch -c keepalive
+      - name: Switch to keepalive branch forcefully
+        run: git switch -C keepalive
       - name: Create empty commit
         run: git commit --allow-empty -m "monthly keepalive $(date -u +%F) [skip ci]"
-      - run: git push origin keepalive
+      - run: git push -f origin keepalive
