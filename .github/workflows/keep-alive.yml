@@ -5,15 +5,18 @@ on:
     - cron: '0 0 1 * *' # every 1st day of the month at 00:00(UTC)
   workflow_dispatch:
 
+permissions:
+  contents: write
 
 jobs:
   keepalive:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v5
-      # - uses: ./.github/actions/configure-git
+      - name: Configure Git name and email
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Switch to keepalive branch (if not exists, create it)
         run: git switch keepalive 2>/dev/null || git switch -c keepalive
       - name: Create empty commit
