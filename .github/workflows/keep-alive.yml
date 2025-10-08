@@ -4,12 +4,13 @@ on:
   schedule:
     - cron: '0 0 1 * *' # every 1st day of the month at 00:00(UTC)
   workflow_dispatch:
-permissions:
-  contents: write
+
 
 jobs:
   keepalive:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v5
       # - uses: ./.github/actions/configure-git
