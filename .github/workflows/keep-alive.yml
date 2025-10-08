@@ -1,4 +1,4 @@
-name: Keepalive
+name: KeepAlive
 
 on:
   schedule:
