@@ -1,4 +1,4 @@
-name: Monthly Keepalive (empty commit)
+name: Keepalive
 
 on:
   schedule:
@@ -11,7 +11,9 @@ jobs:
   keepalive:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          ref: keepalive
       - uses: ./.github/actions/configure-git
       - name: Create empty commit
         run: |
