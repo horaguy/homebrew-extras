@@ -11,7 +11,8 @@ cask "neuralnote" do
 
   uninstall launchctl: "com.draudio.neuralnote",
             quit:      "com.draudio.neuralnote",
-            pkgutil:   "com.draudio.neuralnote"
+            pkgutil:   "com.draudio.neuralnote",
+            delete:    "/Applications/NeuralNote.app"
 
   zap trash: [
     "~/Library/Application Support/NeuralNote",
