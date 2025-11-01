@@ -6,11 +6,9 @@ PACKAGE=$1
 VERSION=$2
 
 if [ "$3" = "--cask" ]; then
-  # brew bump-cask-pr "$PACKAGE" --no-browse --no-fork --version "$VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
-  brew bump-cask-pr "$PACKAGE" --no-browse --no-fork > tmp.log 2>&1; ret=$?; cat tmp.log
+  brew bump-cask-pr "$PACKAGE" --no-browse --no-fork --version "$VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
 else
-  # brew bump-formula-pr "$PACKAGE" --no-browse --no-fork --version "$VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
-  brew bump-formula-pr "$PACKAGE" --no-browse --no-fork > tmp.log 2>&1; ret=$?; cat tmp.log
+  brew bump-formula-pr "$PACKAGE" --no-browse --no-fork --version "$VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
 fi
 
 # If the command-log includes specific message, return 0. Otherwise, return the error code
