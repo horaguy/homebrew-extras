@@ -26,8 +26,9 @@ jobs:
       - run: brew tap horaguy/extras
       - name: Bump all formulas
         run: |
+          shopt -s nullglob # To prevent error when no formula files are found
           for formula_file in Formula/*.rb; do
+            echo "Bumping $formula_file"
             formula=$(basename "$formula_file" .rb)
-            echo "Bumping $formula"
             .github/scripts/bump-pr.sh "$formula"
           done

@@ -9,15 +9,13 @@ CASK_FLAG=$2
 # Get current and latest version from livecheck
 brew livecheck "$FULL_PKG_NAME" # To remove extra log from json, pre-run same command.
 JSON=$(brew livecheck --quiet --json "$FULL_PKG_NAME")
-echo "JSON: $JSON"
 CURRENT_VERSION=$(echo "$JSON" | jq -r '.[0].version.current')
 LATEST_VERSION=$(echo "$JSON" | jq -r '.[0].version.latest')
-echo "CURRENT_VERSION: $CURRENT_VERSION"
-echo "LATEST_VERSION: $LATEST_VERSION"
+# if livecheck skipped, CURRENT_VERSION and LATEST_VERSION is "null"
 [ -z "$CURRENT_VERSION" ] && echo "Current version is not found" && exit 1
 [ -z "$LATEST_VERSION" ] && echo "Latest version is not found" && exit 1
 if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
-  echo "$FULL_PKG_NAME is already up to date"
+  echo "$FULL_PKG_NAME is already up to date (or livecheck is skipped)"
   exit 0
 fi
 

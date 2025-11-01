@@ -26,8 +26,9 @@ jobs:
       - run: brew tap horaguy/extras
       - name: Bump all casks
         run: |
+          shopt -s nullglob # To prevent error when no cask files are found
           for cask_file in Casks/*.rb; do
+            echo "Bumping $cask_file"
             cask=$(basename "$cask_file" .rb)
-            echo "Bumping $cask"
             .github/scripts/bump-pr.sh "$cask" --cask
           done
