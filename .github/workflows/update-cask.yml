@@ -18,13 +18,16 @@ jobs:
       HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      - name: Configure Git name and email
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
-      - uses: ./.github/actions/configure-git
       - run: brew tap horaguy/extras
       - name: Bump all casks
         run: |
           for cask_file in Casks/*.rb; do
             cask=$(basename "$cask_file" .rb)
             echo "Bumping $cask"
-            .github/scripts/bump-cask.sh "$cask"
+            .github/scripts/bump-pr.sh "$cask" --cask
           done
