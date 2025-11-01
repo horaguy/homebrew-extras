@@ -9,6 +9,7 @@ CASK_FLAG=$3
 
 brew upgrade # Fetch API json data, before running livecheck. Otherwise, unnecessary fetch-logs are included in the output of livecheck.
 JSON=$(brew info --quiet --json=v2 "$CASK_FLAG" "$FULL_PKG_NAME")
+echo "JSON: $JSON"
 CURRENT_VERSION=$(echo "$JSON" | jq -r '(.formulae[]?.versions.stable, .casks[]?.version) // empty | select(. != "")')
 echo "CURRENT_VERSION: $CURRENT_VERSION"
 echo "LATEST_VERSION: $LATEST_VERSION"
