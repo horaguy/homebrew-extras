@@ -7,6 +7,7 @@ FULL_PKG_NAME="$(brew tap)/$1"
 CASK_FLAG=$2
 
 JSON=$(brew livecheck --json "$FULL_PKG_NAME")
+echo "JSON: $JSON"
 CURRENT_VERSION=$(echo "$JSON" | jq -r '.[0].version.current')
 LATEST_VERSION=$(echo "$JSON" | jq -r '.[0].version.latest')
 echo "CURRENT_VERSION: $CURRENT_VERSION"
