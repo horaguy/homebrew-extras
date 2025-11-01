@@ -2,7 +2,7 @@ name: Update Homebrew Cask
 
 on:
   schedule:
-    - cron: '0 0 */3 * *' # every 3 days at midnight
+    - cron: "0 0 */3 * *" # every 3 days at midnight
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
       pull-requests: write
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # In GitHub Actions, 'brew bump-cask-pr' requires HOMEBREW_GITHUB_API_TOKEN 
+      # In GitHub Actions, 'brew bump-cask-pr' requires HOMEBREW_GITHUB_API_TOKEN
       HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
@@ -25,6 +25,6 @@ jobs:
         run: |
           for cask_file in Casks/*.rb; do
             cask=$(basename "$cask_file" .rb)
+            echo "Bumping $cask"
             .github/scripts/bump-cask.sh "$cask"
           done
-          
