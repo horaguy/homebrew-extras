@@ -7,7 +7,7 @@ on:
 
 jobs:
   update-formula:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       # Also "Allow GitHub Actions to create and approve pull requests" is required on the repository settings
