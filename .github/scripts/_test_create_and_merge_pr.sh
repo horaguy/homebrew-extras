@@ -1,17 +1,6 @@
-#!/usr/bin/env bash
-
-# Usage: _create_and_merge_pr.sh <package> <version> [--cask]
-
 PACKAGE=$1
-VERSION=$2
 
-if [ "$3" = "--cask" ]; then
-  # brew bump-cask-pr "$PACKAGE" --no-browse --no-fork --version "$VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
-  brew bump-cask-pr "$PACKAGE" --no-browse --no-fork > tmp.log 2>&1; ret=$?; cat tmp.log
-else
-  # brew bump-formula-pr "$PACKAGE" --no-browse --no-fork --version "$VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
-  brew bump-formula-pr "$PACKAGE" --no-browse --no-fork > tmp.log 2>&1; ret=$?; cat tmp.log
-fi
+brew bump-formula-pr "$PACKAGE" --no-browse --no-fork > tmp.log 2>&1; ret=$?; cat tmp.log
 
 # If the command-log includes specific message, return 0. Otherwise, return the error code
 if [ "$ret" -ne 0 ]; then
