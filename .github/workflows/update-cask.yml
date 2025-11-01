@@ -22,7 +22,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
+      - uses: Homebrew/actions/setup-homebrew@main
       - run: brew tap horaguy/extras
       - name: Bump all casks
         run: |
