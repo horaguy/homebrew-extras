@@ -7,7 +7,7 @@ on:
 
 jobs:
   update-cask:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       contents: write
       # Also "Allow GitHub Actions to create and approve pull requests" is required on the repository settings
@@ -22,6 +22,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - uses: Homebrew/actions/setup-homebrew@main
       - run: brew tap horaguy/extras
       - name: Bump all casks
