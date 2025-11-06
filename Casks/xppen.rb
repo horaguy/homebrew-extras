@@ -17,8 +17,6 @@ cask "xppen" do
     end
   end
 
-  depends_on macos: ">= :high_sierra"
-
   pkg "XPPenMac_#{version.csv.third}.pkg"
 
   uninstall launchctl: "com.ugee.PenTablet",

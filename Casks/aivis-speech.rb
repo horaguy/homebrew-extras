@@ -13,8 +13,6 @@ cask "aivis-speech" do
     regex(/AivisSpeech-macOS-arm64-(.*?)\.(?:dmg|zip)/i)
   end
 
-  depends_on macos: ">= :ventura"
-
   app "AivisSpeech.app"
 
   # Remove quarantine attribute to allow unsigned app to run without security warnings

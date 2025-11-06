@@ -12,8 +12,6 @@ cask "melodyne" do
     regex(/Melodyne\.(\d+(?:\.\d+)*)-Demo\.dmg/)
   end
 
-  depends_on macos: ">= :sierra"
-
   pkg "Melodyne.#{version}.pkg"
 
   uninstall launchctl: "com.celemony.melodyne",

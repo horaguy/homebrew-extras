@@ -12,8 +12,6 @@ cask "huion-k20" do
     regex(/MacDriver_v(\d+(?:\.\d+)*)\.dmg/i)
   end
 
-  depends_on macos: ">= :sierra"
-
   app "HuionTablet.app"
 
   uninstall launchctl: "com.huion.HuionTablet",
