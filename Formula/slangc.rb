@@ -15,10 +15,10 @@ class Slangc < Formula
 
     # Remove code signatures first to avoid Team ID mismatch issues
     # This must be done before install_name_tool modifications
-    dylibs.each do |dylib|
-      system "codesign", "--remove-signature", dylib if system("codesign", "-dv", dylib, err: File::NULL)
-    end
-    system "codesign", "--remove-signature", "slangc" if system("codesign", "-dv", "slangc", err: File::NULL)
+    # dylibs.each do |dylib|
+    #   system "codesign", "--remove-signature", dylib if system("codesign", "-dv", dylib, err: File::NULL)
+    # end
+    # system "codesign", "--remove-signature", "slangc" if system("codesign", "-dv", "slangc", err: File::NULL)
 
     # # Fix install_name for each dylib to use @rpath
     # dylibs.each do |dylib|
