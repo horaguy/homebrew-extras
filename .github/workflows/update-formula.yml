@@ -17,7 +17,7 @@ jobs:
       # In GitHub Actions, 'brew bump-formula-pr' requires HOMEBREW_GITHUB_API_TOKEN
       HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Configure Git name and email
         run: |
           git config --global user.name "github-actions[bot]"
@@ -31,5 +31,5 @@ jobs:
           for formula_file in Formula/*.rb; do
             echo "Bumping $formula_file"
             formula=$(basename "$formula_file" .rb)
-            .github/scripts/bump-pr.sh "$formula"
+            .github/scripts/bump.sh "$formula"
           done

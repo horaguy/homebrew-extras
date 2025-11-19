@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Usage: bump-pr.sh <package> [--cask]
+# Usage: bump.sh <package> [--cask]
 
 PACKAGE=$1
 FULL_PKG_NAME="$(brew tap)/$1"
@@ -38,6 +38,3 @@ fi
 BRANCH=$(grep -oE "branch '[^']+" -m 1 tmp.log | sed "s/branch '//")
 PR=$(gh pr list --head "$BRANCH" --json number --jq ".[0].number")
 gh pr merge "$PR" --merge --delete-branch
-
-
-# .github/scripts/_create_and_merge_pr.sh "$FULL_PKG_NAME" "$LATEST_VERSION" "$CASK_FLAG"
