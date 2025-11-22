@@ -1,10 +1,10 @@
-cask "epic-games" do
+cask "epic-games-launcher-custom" do
   version "19.0.0"
   sha256 "78e782ff73b3ddaa267b3d536af748b460200398133527cd199562955c1f184c"
 
   url "https://epicgames-download1.akamaized.net/Builds/UnrealEngineLauncher/Installers/Mac/EpicInstaller-#{version}.dmg",
       verified: "epicgames-download1.akamaized.net/"
-  name "Epic Games Launcher"
+  name "Epic Games Launcher with modified zap settings"
   desc "Launcher for *Epic Games* games"
   homepage "https://www.epicgames.com/"
 
@@ -26,6 +26,8 @@ cask "epic-games" do
     "~/Library/HTTPStorages/com.epicgames.EpicGamesLauncher",
     "~/Library/Logs/Unreal Engine/EpicGamesLauncher",
     "~/Library/Preferences/Unreal Engine/EpicGamesLauncher",
+    "~/Library/Services/UnrealEditorServices.app",
+    "/Users/Shared/UnrealEngine",
   ]
 end
 
