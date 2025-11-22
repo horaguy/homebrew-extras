@@ -1,4 +1,4 @@
-cask "epic-games-launcher-custom" do
+cask "epic-games-custom" do
   version "19.0.0"
   sha256 "78e782ff73b3ddaa267b3d536af748b460200398133527cd199562955c1f184c"
 
