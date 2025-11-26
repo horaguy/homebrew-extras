@@ -1,3 +1,8 @@
+# Modified cask for Epic Games Launcher
+# - Use the newer version rather than the original cask.
+#   - The original cask failed to verify the signature in Intel Mac. This cask ignores the problem, so it's only for Apple Silicon Mac.
+# - Add extra items which are not in the original cask.
+
 cask "epic-games-modified" do
   version "19.0.0"
   sha256 "78e782ff73b3ddaa267b3d536af748b460200398133527cd199562955c1f184c"
