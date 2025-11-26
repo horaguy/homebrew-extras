@@ -49,4 +49,6 @@ cask "shader-slang" do
     "/opt/homebrew/lib/libslang-rt.0.#{version}.dylib",
     "/opt/homebrew/share/shader-slang",
   ]
+
+  zap trash: []
 end
