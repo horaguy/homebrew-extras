@@ -1,4 +1,4 @@
-class Slangc < Formula
+class ShaderSlang < Formula
   desc "Slang shader compiler"
   homepage "https://github.com/shader-slang/slang"
   url "https://github.com/shader-slang/slang/releases/download/v2025.22.1/slang-macos-dist-aarch64.zip"
