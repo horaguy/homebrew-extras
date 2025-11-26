@@ -13,21 +13,14 @@ class ShaderSlang < Formula
   def install
     dylibs = Dir["*.dylib"]
 
-    # Remove code signatures first to avoid Team ID mismatch issues
-    # This must be done before install_name_tool modifications
-    # dylibs.each do |dylib|
-    #   system "codesign", "--remove-signature", dylib
-    # end
-
     # Install files
     lib.install dylibs
     bin.install "slangc"
-
-    # Add rpath to executables pointing to lib directory
-    system "install_name_tool", "-add_rpath", "#{lib}", "#{bin}/slangc"
-
-    # Install slang modules
     pkgshare.install Dir["*.slang-module"]
+
+    # # Add rpath to executables pointing to lib directory
+    # system "install_name_tool", "-add_rpath", "#{lib}", "#{bin}/slangc"
+
   end
 
   test do
