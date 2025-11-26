@@ -1,4 +1,4 @@
-class Slangc < Formula
+class "slang" < Formula
   desc "Slang shader compiler"
   homepage "https://github.com/shader-slang/slang"
   url "https://github.com/shader-slang/slang/releases/download/v2025.22.1/slang-macos-dist-aarch64.zip"
@@ -15,9 +15,9 @@ class Slangc < Formula
 
     # Remove code signatures first to avoid Team ID mismatch issues
     # This must be done before install_name_tool modifications
-    dylibs.each do |dylib|
-      system "codesign", "--remove-signature", dylib
-    end
+    # dylibs.each do |dylib|
+    #   system "codesign", "--remove-signature", dylib
+    # end
 
     # Install files
     lib.install dylibs
