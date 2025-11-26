@@ -7,18 +7,15 @@ cask "shader-slang" do
   desc "Slang shader compiler"
   homepage "https://github.com/shader-slang/slang"
 
-  livecheck do
-    url :stable
-    strategy :github_latest
-  end
-
   binary "slangc"
   binary "slangd"
 
   postflight do
+    require "fileutils"
+
     # Install libraries to Homebrew's lib directory
-    lib_path = Pathname.new("/opt/homebrew")/"lib"
-    lib_path.mkpath
+    lib_path = "/opt/homebrew/lib"
+    FileUtils.mkdir_p lib_path
     [
       "libgfx.0.#{version}.dylib",
       "libslang-compiler.0.#{version}.dylib",
@@ -27,17 +24,13 @@ cask "shader-slang" do
       "libslang-llvm.dylib",
       "libslang-rt.0.#{version}.dylib",
     ].each do |dylib|
-      system_command "/bin/cp",
-                     args: ["-f", staged_path/dylib, lib_path],
-                     sudo: false
+      FileUtils.cp staged_path/dylib, lib_path
     end
 
     # Install modules to Homebrew's share directory
-    share_path = Pathname.new("/opt/homebrew")/"share"/"shader-slang"
-    share_path.mkpath
-    system_command "/bin/cp",
-                   args: ["-f", staged_path/"neural.slang-module", share_path],
-                   sudo: false
+    share_path = "/opt/homebrew/share/shader-slang"
+    FileUtils.mkdir_p share_path
+    FileUtils.cp staged_path/"neural.slang-module", share_path
   end
 
   uninstall delete: [
