@@ -11,12 +11,16 @@ class ShaderSlang < Formula
   end
 
   def install
-    dylibs = Dir["*.dylib"]
+    libexec.install Dir["*"]
+    bin.write_exec_script libexec/"bin/slangc"
 
-    # Install files
-    lib.install dylibs
-    bin.install "slangc"
-    pkgshare.install Dir["*.slang-module"]
+
+    # dylibs = Dir["*.dylib"]
+
+    # # Install files
+    # lib.install dylibs
+    # bin.install "slangc"
+    # pkgshare.install Dir["*.slang-module"]
 
     # # Add rpath to executables pointing to lib directory
     # system "install_name_tool", "-add_rpath", "#{lib}", "#{bin}/slangc"
