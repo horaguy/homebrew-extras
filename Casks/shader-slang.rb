@@ -1,3 +1,5 @@
+# Compiling Slang takes a long time, so we use a pre-compiled binary.
+# This is provided as a Cask since a Formulae aren’t suitable for pre-compiled binaries in Homebrew.
 cask "shader-slang" do
   version "2025.23.1"
   sha256 "67d0c3191f6ee554f2827964ed98b2fa05f005c7f6ba601535bd9497f1ada487"
@@ -6,6 +8,11 @@ cask "shader-slang" do
   name "Shader Slang"
   desc "Slang shader compiler"
   homepage "https://github.com/shader-slang/slang"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   binary "slangc"
   binary "slangd"
