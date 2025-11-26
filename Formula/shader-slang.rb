@@ -1,8 +1,8 @@
 class ShaderSlang < Formula
   desc "Slang shader compiler"
   homepage "https://github.com/shader-slang/slang"
-  url "https://github.com/shader-slang/slang/releases/download/v2025.22.1/slang-macos-dist-aarch64.zip"
-  sha256 "946e59576b00b28ec34b36de9f77c216a319fc932d6e2efac315533631156892"
+  url "https://github.com/shader-slang/slang/releases/download/v2025.23.1/slang-macos-dist-aarch64.zip"
+  sha256 "67d0c3191f6ee554f2827964ed98b2fa05f005c7f6ba601535bd9497f1ada487"
   head "https://github.com/shader-slang/slang.git", branch: "main"
 
   livecheck do
