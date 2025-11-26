@@ -12,7 +12,7 @@ class ShaderSlang < Formula
 
   def install
     libexec.install Dir["*"]
-    bin.write_exec_script libexec/"bin/slangc"
+    bin.write_exec_script libexec/"slangc"
 
 
     # dylibs = Dir["*.dylib"]
