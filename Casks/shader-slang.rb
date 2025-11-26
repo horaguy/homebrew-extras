@@ -13,24 +13,40 @@ cask "shader-slang" do
   end
 
   binary "slangc"
+  binary "slangd"
 
   postflight do
     # Install libraries to Homebrew's lib directory
-    lib_path = Pathname.new(ENV["HOMEBREW_PREFIX"] || "/opt/homebrew")/"lib"
+    lib_path = Pathname.new("/opt/homebrew")/"lib"
     lib_path.mkpath
-    Dir.glob(staged_path/"*.dylib").each do |dylib|
+    [
+      "libgfx.0.#{version}.dylib",
+      "libslang-compiler.0.#{version}.dylib",
+      "libslang-glsl-module-#{version}.dylib",
+      "libslang-glslang-#{version}.dylib",
+      "libslang-llvm.dylib",
+      "libslang-rt.0.#{version}.dylib",
+    ].each do |dylib|
       system_command "/bin/cp",
-                     args: ["-f", dylib, lib_path],
+                     args: ["-f", staged_path/dylib, lib_path],
                      sudo: false
     end
 
     # Install modules to Homebrew's share directory
-    share_path = Pathname.new(ENV["HOMEBREW_PREFIX"] || "/opt/homebrew")/"share"/"shader-slang"
+    share_path = Pathname.new("/opt/homebrew")/"share"/"shader-slang"
     share_path.mkpath
-    Dir.glob(staged_path/"*.slang-module").each do |module_file|
-      system_command "/bin/cp",
-                     args: ["-f", module_file, share_path],
-                     sudo: false
-    end
+    system_command "/bin/cp",
+                   args: ["-f", staged_path/"neural.slang-module", share_path],
+                   sudo: false
   end
+
+  uninstall delete: [
+    "/opt/homebrew/lib/libgfx.0.#{version}.dylib",
+    "/opt/homebrew/lib/libslang-compiler.0.#{version}.dylib",
+    "/opt/homebrew/lib/libslang-glsl-module-#{version}.dylib",
+    "/opt/homebrew/lib/libslang-glslang-#{version}.dylib",
+    "/opt/homebrew/lib/libslang-llvm.dylib",
+    "/opt/homebrew/lib/libslang-rt.0.#{version}.dylib",
+    "/opt/homebrew/share/shader-slang",
+  ]
 end
