@@ -1,7 +1,5 @@
-# Modified cask for Epic Games Launcher
-# - Use the newer version rather than the original cask.
-#   - The original cask failed to verify the signature in Intel Mac. This cask ignores the problem, so it's only for Apple Silicon Mac.
-# - Add extra items which are not in the original cask.
+# Modified cask of Epic Games Launcher (https://github.com/Homebrew/homebrew-cask/blob/main/Casks/e/epic-games.rb)
+# The original cask failed to verify the signature in Intel Mac in 19.0.0, so this cask is modified for Apple Silicon only.
 
 cask "epic-games-modified" do
   version "19.0.0"
@@ -19,7 +17,7 @@ cask "epic-games-modified" do
   end
 
   auto_updates true
-  depends_on macos: ">= :ventura"
+  depends_on arch: :arm64
 
   app "Epic Games Launcher.app"
 
@@ -31,7 +29,7 @@ cask "epic-games-modified" do
     "~/Library/HTTPStorages/com.epicgames.EpicGamesLauncher",
     "~/Library/Logs/Unreal Engine/EpicGamesLauncher",
     "~/Library/Preferences/Unreal Engine/EpicGamesLauncher",
-    # Add extra items which are not in the original cask as the following:
+    # Extra items which are not in the original cask:
     "~/Library/Services/UnrealEditorServices.app",
     "/Users/Shared/UnrealEngine",
   ]
