@@ -2,7 +2,6 @@
 
 # Usage: bump.sh <package> [--cask]
 
-PACKAGE=$1
 FULL_PKG_NAME="$(brew tap)/$1"
 CASK_FLAG=$2
 
