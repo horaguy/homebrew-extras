@@ -9,9 +9,7 @@ cask "live2d" do
 
     livecheck do
       url "https://www.live2d.com/cubism/download/editor/"
-      # <span id="ver_mac" class="btn_ver">5.3.00 (2026-01-20)</span> のエレメントからバージョン(5.3.00)を取得
-      # (idだけ指定すれば良く、classはあってもなくても良いものとする
-      regex(/<span id="ver_mac" [^>]*>(\d+(?:\.\d+)*)\s*\(.*?\)</span>/)
+      regex(/<span id="ver_mac" [^>]*>(\d+(?:\.\d+)*)\s*\(.*?\)<\/span>/)
     end
 
     # pkg "Live2D_Cubism_Setup_#{version}_arm64.pkg"
