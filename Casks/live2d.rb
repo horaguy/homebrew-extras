@@ -15,5 +15,5 @@ cask "live2d" do
     pkg "Live2D_Cubism_Setup_#{version}_arm64.pkg"
 
     # /Applications/Live2D Cubism 5.3 のようなディレクトリがあるので、それを削除する。versionではなく /Applications/Live2D Cubism *を消した方が良い
-    uninstall delete: "/Applications/Live2D Cubism *"
+    # uninstall delete: "/Applications/Live2D Cubism *"
   end
