@@ -8,6 +8,11 @@ cask "moho" do
   desc "Vector based 2D Computer animation software"
   homepage "https://moho.lostmarble.com"
 
+  livecheck do
+    url "https://moho.lostmarble.com/pages/download"
+    regex(/Current installer version - Moho (\d+(?:\.\d+)*)/i)
+  end
+
   app "Moho.app"
 
   zap trash: [
