@@ -8,8 +8,7 @@ cask "huion-k20" do
   homepage "https://www.huion.com/jp/index.php?m=content&c=index&a=lists&catid=16&myform=1&down_title=k20"
 
   livecheck do
-    url "https://www.huion.com/jp/index.php?m=content&c=index&a=lists&catid=16&myform=1&down_title=k20"
-    regex(/MacDriver_v(\d+(?:\.\d+)*)\.dmg/i)
+    skip "It's difficult to get the latest version, and the last update was in 2023. So, we skip livecheck."
   end
 
   app "HuionTablet.app"
