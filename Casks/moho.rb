@@ -4,8 +4,9 @@ cask "moho" do
 
   # url "https://www.dropbox.com/scl/fi/nrz0dcufujy6093mk4g2h/Moho1440_Mac.dmg?rlkey=wo8ug7lalxmjfzdmcgzrh0gyl&st=q83hblkk&dl=1",
   # https://github.com/Homebrew/homebrew-cask/blob/f479af4c1fa286128b3c61261edf31f2ed646ffc/Casks/c/command-x.rb#L6 ?
-  url "https://delivery.shopifyapps.com/-/b1b5e7614552eeac/15449ea520c87e08",
-    user_agent: :browser
+  url "https://dl.dropboxusercontent.com/scl/fi/nrz0dcufujy6093mk4g2h/Moho1440_Mac.dmg?rlkey=wo8ug7lalxmjfzdmcgzrh0gyl&st=q83hblkk"
+  # url "https://delivery.shopifyapps.com/-/b1b5e7614552eeac/15449ea520c87e08",
+  #   user_agent: :browser
   name "MOHO"
   desc "Vector based 2D Computer animation software"
   homepage "https://moho.lostmarble.com"
