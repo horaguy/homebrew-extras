@@ -8,9 +8,8 @@ cask "live2d" do
   homepage "https://www.live2d.com/"
 
   livecheck do
-    url "https://www.live2d.com/cubism/download/editor/"
-    # idがver_macのspanタグの内容を抽出、さらに5.3.00 (2026-01-20)のようになっているので、そこから5.3.00を抽出
-    regex(/<span id="ver_mac" [^>]*>([\d\.]+)/)
+    url "https://cubism.live2d.com/editor/js/download.js"
+    regex(/LATEST_VERSION_MAC = "(\d+(?:\.\d+)*)"/)
   end
 
   pkg "Live2D_Cubism_Setup_#{version}_arm64.pkg"
