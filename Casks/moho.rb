@@ -4,7 +4,7 @@ cask "moho" do
 
   url "https://www.dropbox.com/scl/fi/nrz0dcufujy6093mk4g2h/Moho1440_Mac.dmg?rlkey=wo8ug7lalxmjfzdmcgzrh0gyl&st=q83hblkk&dl=1",
   # url "https://delivery.shopifyapps.com/-/b1b5e7614552eeac/15449ea520c87e08/download",
-    user_agent: :fake
+    user_agent: :browser
   name "MOHO"
   desc "Vector based 2D Computer animation software"
   homepage "https://moho.lostmarble.com"
