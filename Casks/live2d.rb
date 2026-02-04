@@ -12,7 +12,8 @@ cask "live2d" do
       regex(/<span id="ver_mac" [^>]*>(\d+(?:\.\d+)*)\s*\(.*?\)<\/span>/)
     end
 
-    # pkg "Live2D_Cubism_Setup_#{version}_arm64.pkg"
+    pkg "Live2D_Cubism_Setup_#{version}_arm64.pkg"
 
-    # uninstall pkgutil: "com.live2d.cubism.editor"
+    # /Applications/Live2D Cubism 5.3 のようなディレクトリがあるので、それを削除する。versionではなく /Applications/Live2D Cubism *を消した方が良い
+    uninstall delete: "/Applications/Live2D Cubism *"
   end
