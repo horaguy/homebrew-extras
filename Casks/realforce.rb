@@ -6,11 +6,7 @@ cask "realforce" do
 
     url "https://www.realforce.co.jp/support/download/software/mac/files/REALFORCE%20CONNECT%20Software_#{version.dots_to_hyphens}.pkg",
         verified: "https://www.realforce.co.jp/support/download/software/mac/files/",
-        # user_agent: :fake,
-        headers: {
-            "Referer" => "https://www.realforce.co.jp/support/download/software/mac/files/",
-            "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        }
+        user_agent: :browser
     name "REALFORCE for Mac"
     desc "Software for Realforce keyboards and mice"
     homepage "https://www.realforce.co.jp/"
