@@ -5,7 +5,7 @@ cask "realforce" do
     sha256 "b05654444e7d73b01c8b22e8dbe5b71bf98c8c1a9d0f0122a38134256666de19"
 
     url "https://www.realforce.co.jp/support/download/software/mac/files/REALFORCE%20CONNECT%20Software_#{version.dots_to_hyphens}.pkg",
-        verified: "https://www.realforce.co.jp/support/download/software/mac/files/"
+        verified: "https://www.realforce.co.jp/support/download/software/mac/files/",
         user_agent: :fake
     name "REALFORCE for Mac"
     desc "Software for Realforce keyboards and mice"
