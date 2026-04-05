@@ -23,7 +23,7 @@ jobs:
         run: echo PRIVATE_TAP_GITHUB_TOKEN="$PRIVATE_TAP_GITHUB_TOKEN"
       - name: Test
         run: gh api /repos/horaguy/aseprite-build
-        env:
-          GH_TOKEN: ${{ steps.private-tap-github-token.outputs.token }}
+        # env:
+        #   GH_TOKEN: ${{ steps.private-tap-github-token.outputs.token }}
       - name: Test2
         run: curl -sL https://${{ steps.private-tap-github-token.outputs.token }}@api.github.com/repos/horaguy/aseprite-build
