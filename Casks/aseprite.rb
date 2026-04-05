@@ -9,7 +9,7 @@ cask "aseprite" do
     ]
 
   name "Aseprite"
-  desc "Animated sprite editor & pixel art tool"
+  desc "**PRIVATE CASK** Animated sprite editor & pixel art tool"
   homepage "https://www.aseprite.org/"
 
   livecheck do
@@ -27,6 +27,11 @@ cask "aseprite" do
   end
 
   app "Aseprite.app"
+
+  postflight do
+    system_command "xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{staged_path}/Aseprite.app"],
+  end
 
   zap trash: [
     "~/Library/Application Scripts/org.aseprite.AsepriteThumbnailer",
