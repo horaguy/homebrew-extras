@@ -21,6 +21,8 @@ jobs:
       # - run: echo "GITHUB_TOKEN=${{ steps.private-tap-github-token.outputs.token }}" >> $GITHUB_ENV
       # - name: echo env
       #   run: echo PRIVATE_TAP_GITHUB_TOKEN="$PRIVATE_TAP_GITHUB_TOKEN"
+      - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - uses: Homebrew/actions/setup-homebrew@main
       - name: Test
         run: gh api /repos/horaguy/aseprite-build
         env:
