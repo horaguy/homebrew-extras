@@ -1,12 +1,8 @@
 cask "aseprite" do
-  version "1.3.17"
+  version "1.3.17,388832112" # version,asset_id
   sha256 "54edab654452a2797ae5f701a91956c02f72e57f88a89a63ae282692d67330ba"
 
-  # url "https://github.com/horaguy/aseprite-build/releases/download/v#{version}/Aseprite-v#{version}-macOS.zip",
-  #     header: "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}"
-  # url "https://#{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}@api.github.com/repos/horaguy/aseprite-build/releases/assets/388832112",
-  #   header: "Accept: application/octet-stream"
-  url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/388832112",
+  url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/#{version.csv.second}",
     header: [
       "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}",
       "Accept: application/octet-stream",
@@ -17,10 +13,16 @@ cask "aseprite" do
   homepage "https://www.aseprite.org/"
 
   livecheck do
-    url "https://api.github.com/repos/horaguy/aseprite-build/releases/latest"
+    url "https://api.github.com/repos/horaguy/aseprite-build/releases/latest",
+      header: [
+        "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}",
+        "Accept: application/json",
+      ]
     regex(/v?(\d+(?:\.\d+)+)/i)
     strategy :json do |json, regex|
-      json["tag_name"]&.scan(regex)&.flatten
+      tag = json["tag_name"]&.scan(regex)&.flatten&.first
+      asset = json["assets"].find { |a| a["name"]&.end_with?("macOS.zip") }
+      "#{tag},#{asset["id"]}"
     end
   end
 
