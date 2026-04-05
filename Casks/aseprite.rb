@@ -8,24 +8,23 @@ cask "aseprite" do
   # - The name of the environment variable should be "HOMEBREW_*"
 
   url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/#{version.csv.second}",
-    header: [
-      "Authorization: token #{ENV.fetch("HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN", nil)}",
-      "Accept: application/octet-stream",
-    ]
-
+      header: [
+        "Authorization: token #{ENV.fetch("HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN", nil)}",
+        "Accept: application/octet-stream",
+      ]
   name "Aseprite"
   desc "Animated sprite editor & pixel art tool (***PRIVATE CASK***)"
   homepage "https://www.aseprite.org/"
 
   livecheck do
     url "https://api.github.com/repos/horaguy/aseprite-build/releases/latest",
-      header: [
-        "Authorization: token #{ENV.fetch("HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN", nil)}",
-        "Accept: application/json",
-      ]
+        header: [
+          "Authorization: token #{ENV.fetch("HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN", nil)}",
+          "Accept: application/json",
+        ]
     regex(/v?(\d+(?:\.\d+)+)/i)
     strategy :json do |json, regex|
-      tag = json["tag_name"]&.scan(regex)&.flatten&.first
+      tag = json["tag_name"]&.then { |t| t.scan(regex).flatten.first }
       asset = json["assets"].find { |a| a["name"]&.end_with?("macOS.zip") }
       "#{tag},#{asset["id"]}"
     end
