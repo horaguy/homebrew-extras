@@ -1,3 +1,6 @@
+# REQUIREMENTS:
+# - Enable "Allow GitHub Actions to create and approve pull requests" in https://github.com/[username]/[repository]/settings/actions
+
 name: Bump Formula and Cask
 
 on:
@@ -10,29 +13,30 @@ jobs:
     runs-on: ubuntu-slim
     permissions:
       contents: write
-      # Also "Allow GitHub Actions to create and approve pull requests" is required on the repository settings
       pull-requests: write
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # 'brew bump-formula-pr' and 'brew bump-cask-pr' require HOMEBREW_GITHUB_API_TOKEN
-      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For gh-cli
+      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For 'brew bump-*-pr'
     steps:
-      - uses: actions/create-github-app-token@v3
-        id: private-tap-github-token
-        with:
-          app-id: ${{ secrets.GITHUBAPP_ID }}
-          private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-      - run: echo "HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN=${{ steps.private-tap-github-token.outputs.token }}" >> $GITHUB_ENV
       - uses: actions/checkout@v6
       - name: Configure Git name and email
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      # Get a personal access token for the private tap ($HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN)
+      - uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          app-id: ${{ secrets.GITHUBAPP_ID }}
+          private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+      - run: echo "HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN=${{ steps.app-token.outputs.token }}" >> $GITHUB_ENV
+      # Setup Homebrew (Homebrew isn't installed in ubuntu-slim)
       - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - uses: Homebrew/actions/setup-homebrew@main
+      # Bump Casks and Formulas
       - run: brew tap horaguy/extras
-      - name: Bump all casks
+      - name: Bump Casks and Formulas
         run: |
           shopt -s nullglob # To prevent error when no cask files are found
           for cask_file in Casks/*.rb; do
@@ -40,9 +44,6 @@ jobs:
             cask=$(basename "$cask_file" .rb)
             .github/scripts/bump.sh "$cask" --cask
           done
-      - name: Bump all formulas
-        run: |
-          shopt -s nullglob # To prevent error when no formula files are found
           for formula_file in Formula/*.rb; do
             echo "Bumping $formula_file"
             formula=$(basename "$formula_file" .rb)
