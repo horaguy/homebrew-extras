@@ -32,6 +32,8 @@ jobs:
       - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - uses: Homebrew/actions/setup-homebrew@main
       - run: brew tap horaguy/extras
+      - name: echo env
+        run: echo PRIVATE_TAP_GITHUB_TOKEN="$PRIVATE_TAP_GITHUB_TOKEN"
       - name: Bump all casks
         run: |
           shopt -s nullglob # To prevent error when no cask files are found
