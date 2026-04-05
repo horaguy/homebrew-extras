@@ -9,9 +9,11 @@ jobs:
   tmptest:
     runs-on: ubuntu-slim
     steps:
-      - name: echo env
+      # Setup Homebrew (Homebrew isn't installed in ubuntu-slim)
+      - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - uses: Homebrew/actions/setup-homebrew@main
+      # Test
+      - name: Test
         run: |
-          echo GITHUB_TOKEN=$GITHUB_TOKEN
-      - name: echo env2
-        run: |
-          echo GH_TOKEN=$GH_TOKEN
+          brew tap homebrew/core
+          brew livecheck --quiet --json bat
