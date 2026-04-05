@@ -28,3 +28,6 @@ jobs:
       - name: Test2
         run: |
           curl -H "Authorization: Bearer ${{ steps.private-tap-github-token.outputs.token }}" https://api.github.com/repos/horaguy/aseprite-build
+      - name: Test3
+        run: |
+          curl -H "Authorization: token ${{ steps.private-tap-github-token.outputs.token }}" https://api.github.com/repos/horaguy/aseprite-build
