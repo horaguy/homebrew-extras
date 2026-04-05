@@ -8,7 +8,7 @@ cask "aseprite" do
   # - A personal access token (classic) is needed to use across different owner/organizations.
   url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/#{version.csv.second}",
     header: [
-      "Authorization: token #{ENV["PRIVATE_TAP_GITHUB_TOKEN"]}",
+      "Authorization: token #{ENV["HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN"]}",
       # "Authorization: token #{ENV["HOMEBREW_GITHUB_API_TOKEN"]}",
       "Accept: application/octet-stream",
     ]
@@ -20,7 +20,7 @@ cask "aseprite" do
   livecheck do
     url "https://api.github.com/repos/horaguy/aseprite-build/releases/latest",
       header: [
-        "Authorization: token #{ENV["PRIVATE_TAP_GITHUB_TOKEN"]}",
+        "Authorization: token #{ENV["HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN"]}",
         # "Authorization: token #{ENV["HOMEBREW_GITHUB_API_TOKEN"]}",
         "Accept: application/json",
       ]
