@@ -23,6 +23,12 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      # Tap this repository
+      - name: Set TAP_NAME
+        run: |
+          REPO_NAME="${{ github.event.repository.name }}"
+          echo "TAP_NAME=${{ github.repository_owner }}/${REPO_NAME#homebrew-}" >> $GITHUB_ENV
+      - run: brew tap $TAP_NAME
       # Get a personal access token for the private tap ($HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN)
       - uses: actions/create-github-app-token@v3
         id: app-token
@@ -35,17 +41,37 @@ jobs:
       - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - uses: Homebrew/actions/setup-homebrew@main
       # Bump Casks and Formulas
-      - run: brew tap horaguy/extras
       - name: Bump Casks and Formulas
         run: |
           shopt -s nullglob # To prevent error when no cask files are found
-          for cask_file in Casks/*.rb; do
-            echo "Bumping $cask_file"
-            cask=$(basename "$cask_file" .rb)
-            .github/scripts/bump.sh "$cask" --cask
-          done
-          for formula_file in Formula/*.rb; do
-            echo "Bumping $formula_file"
-            formula=$(basename "$formula_file" .rb)
-            .github/scripts/bump.sh "$formula"
+          for rb in Casks/*.rb Formula/*.rb; do
+            FULL_PKG_NAME="${TAP_NAME}/$(basename "$rb" .rb)"
+            echo "Bumping $FULL_PKG_NAME"
+            
+            LATEST_VERSION=$(brew livecheck --quiet --json --newer-only "$FULL_PKG_NAME" | jq -r '.[0].version.latest // empty')
+            if [ -z "$LATEST_VERSION" ]; then
+              echo "$FULL_PKG_NAME is already up to date (or livecheck is skipped)"
+              continue
+            fi
+
+            dir=$(dirname "$rb")
+            if [ "$dir" = "Casks" ]; then
+              brew bump-cask-pr "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
+            elif [ "$dir" = "Formula" ]; then
+              brew bump-formula-pr "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
+            fi
+            # Check the bump-*-pr error, but if specific message is included, ignore the error
+            if [ "$ret" -ne 0 ]; then
+              # if grep -q "Duplicate PRs must not be opened." tmp.log \
+              #   || grep -q "pull requests are duplicates" tmp.log \
+              #   || grep -q "nothing to commit, working tree clean" tmp.log; then
+              #   continue
+              # fi
+              echo "Error: Failed to bump $FULL_PKG_NAME"
+              exit "$ret"
+            fi
+            # Find branch & PR from log, and merge it
+            BRANCH=$(grep -oE "branch '[^']+" -m 1 tmp.log | sed "s/branch '//")
+            PR=$(gh pr list --head "$BRANCH" --json number --jq ".[0].number")
+            gh pr merge "$PR" --merge --delete-branch
           done
