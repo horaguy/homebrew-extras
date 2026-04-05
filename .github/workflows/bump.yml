@@ -1,4 +1,4 @@
-name: Update Homebrew Formula
+name: Bump Homebrew Formula and Cask
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-formula:
+  bump:
     runs-on: ubuntu-slim
     permissions:
       contents: write
@@ -14,9 +14,16 @@ jobs:
       pull-requests: write
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # In GitHub Actions, 'brew bump-formula-pr' requires HOMEBREW_GITHUB_API_TOKEN
+      # 'brew bump-formula-pr' and 'brew bump-cask-pr' require HOMEBREW_GITHUB_API_TOKEN
       HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - uses: actions/create-github-app-token@v3
+        id: private-tap-github-token
+        with:
+          app-id: ${{ secrets.GITHUB_APP_ID }}
+          private-key: ${{ secrets.GITHUB_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+      - run: echo "PRIVATE_TAP_GITHUB_TOKEN=${{ steps.private-tap-github-token.outputs.token }}" >> $GITHUB_ENV
       - uses: actions/checkout@v6
       - name: Configure Git name and email
         run: |
@@ -25,6 +32,14 @@ jobs:
       - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - uses: Homebrew/actions/setup-homebrew@main
       - run: brew tap horaguy/extras
+      - name: Bump all casks
+        run: |
+          shopt -s nullglob # To prevent error when no cask files are found
+          for cask_file in Casks/*.rb; do
+            echo "Bumping $cask_file"
+            cask=$(basename "$cask_file" .rb)
+            .github/scripts/bump.sh "$cask" --cask
+          done
       - name: Bump all formulas
         run: |
           shopt -s nullglob # To prevent error when no formula files are found
