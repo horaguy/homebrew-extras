@@ -38,4 +38,4 @@ jobs:
           brew tap horaguy/extras
           brew livecheck aseprite
         env:
-          PRIVATE_TAP_GITHUB_TOKEN: ${{ steps.private-tap-github-token.outputs.token }}
+          HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN: ${{ steps.private-tap-github-token.outputs.token }}
