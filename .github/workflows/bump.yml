@@ -58,10 +58,10 @@ jobs:
             dir=$(dirname "$rb")
             if [ "$dir" = "Casks" ]; then
               echo "Bumping $FULL_PKG_NAME as Cask"
-              brew bump-cask-pr "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
+              brew bump-cask-pr "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" > tmp.log 2>&1 || ret=$?; cat tmp.log
             elif [ "$dir" = "Formula" ]; then
               echo "Bumping $FULL_PKG_NAME as Formula"
-              brew bump-formula-pr "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
+              brew bump-formula-pr "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" > tmp.log 2>&1 || ret=$?; cat tmp.log
             fi
             # Check the bump-*-pr error, but if specific message is included, ignore the error
             if [ "$ret" -ne 0 ]; then
