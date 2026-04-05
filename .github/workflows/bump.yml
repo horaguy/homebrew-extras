@@ -53,11 +53,14 @@ jobs:
               echo "$FULL_PKG_NAME is already up to date (or livecheck is skipped)"
               continue
             fi
+            echo "LATEST_VERSION=$LATEST_VERSION"
 
             dir=$(dirname "$rb")
             if [ "$dir" = "Casks" ]; then
+              echo "Bumping $FULL_PKG_NAME as Cask"
               brew bump-cask-pr "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
             elif [ "$dir" = "Formula" ]; then
+              echo "Bumping $FULL_PKG_NAME as Formula"
               brew bump-formula-pr "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" > tmp.log 2>&1; ret=$?; cat tmp.log
             fi
             # Check the bump-*-pr error, but if specific message is included, ignore the error
@@ -72,6 +75,9 @@ jobs:
             fi
             # Find branch & PR from log, and merge it
             BRANCH=$(grep -oE "branch '[^']+" -m 1 tmp.log | sed "s/branch '//")
+            echo "BRANCH=$BRANCH"
             PR=$(gh pr list --head "$BRANCH" --json number --jq ".[0].number")
+            echo "PR=$PR"
+            echo "Merging PR $PR"
             gh pr merge "$PR" --merge --delete-branch
           done
