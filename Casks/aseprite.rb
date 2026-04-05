@@ -1,6 +1,8 @@
 cask "aseprite" do
-  version "1.3.17,388832112" # version,asset_id
+  version "1.3.16,388832112"
   sha256 "54edab654452a2797ae5f701a91956c02f72e57f88a89a63ae282692d67330ba"
+  # version "1.3.17,388832112" # version,asset_id
+  # sha256 "54edab654452a2797ae5f701a91956c02f72e57f88a89a63ae282692d67330ba"
 
   # EULA of Aseprite: https://github.com/aseprite/aseprite/blob/main/EULA.txt
   # According to the EULA, we release built apps only in private repository. As a result, an personal access token is required.
