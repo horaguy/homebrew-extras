@@ -24,4 +24,10 @@ cask "aseprite" do
   end
 
   app "Aseprite.app"
+
+  zap trash: [
+    "~/Library/Application Scripts/org.aseprite.AsepriteThumbnailer",
+    "~/Library/Application Support/Aseprite",
+    "~/Library/Containers/org.aseprite.AsepriteThumbnailer",
+  ]
 end
