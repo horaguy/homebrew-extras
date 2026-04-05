@@ -2,15 +2,14 @@ cask "aseprite" do
   version "1.3.16,388832112"
   sha256 "54edab654452a2797ae5f701a91956c02f72e57f88a89a63ae282692d67330ba"
 
-  # EULA of Aseprite: https://github.com/aseprite/aseprite/blob/main/EULA.txt
-  # According to the EULA, we release built apps only in private repository.
-  # - As a result, a personal access token is required.
-  # - The personal access token should include permissions to access the private repository.
+  # According to the EULA of Aseprite, we release built apps only in private repository.
+  # - https://github.com/aseprite/aseprite/blob/main/EULA.txt
   # - A personal access token (classic) is needed to use across different owner/organizations.
-  # - A name of the environment variable should be "HOMEBREW_*"
+  # - The name of the environment variable should be "HOMEBREW_*"
+
   url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/#{version.csv.second}",
     header: [
-      "Authorization: token #{ENV["HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN"]}",
+      "Authorization: token #{ENV.fetch("HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN", nil)}",
       "Accept: application/octet-stream",
     ]
 
@@ -21,7 +20,7 @@ cask "aseprite" do
   livecheck do
     url "https://api.github.com/repos/horaguy/aseprite-build/releases/latest",
       header: [
-        "Authorization: token #{ENV["HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN"]}",
+        "Authorization: token #{ENV.fetch("HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN", nil)}",
         "Accept: application/json",
       ]
     regex(/v?(\d+(?:\.\d+)+)/i)
