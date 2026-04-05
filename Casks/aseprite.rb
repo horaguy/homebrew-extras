@@ -17,6 +17,7 @@ cask "aseprite" do
   homepage "https://www.aseprite.org/"
 
   livecheck do
+    # Get latest tag and asset ID
     url "https://api.github.com/repos/horaguy/aseprite-build/releases/latest",
         header: [
           "Authorization: token #{ENV.fetch("HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN", nil)}",
@@ -33,6 +34,7 @@ cask "aseprite" do
   app "Aseprite.app"
 
   postflight do
+    # Remove quarantine attribute to allow unsigned app to run without security warnings
     system_command "xattr",
                    args: ["-dr", "com.apple.quarantine", "#{staged_path}/Aseprite.app"]
   end
