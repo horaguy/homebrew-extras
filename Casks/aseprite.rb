@@ -30,7 +30,7 @@ cask "aseprite" do
 
   postflight do
     system_command "xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{staged_path}/Aseprite.app"],
+                   args: ["-dr", "com.apple.quarantine", "#{staged_path}/Aseprite.app"]
   end
 
   zap trash: [
