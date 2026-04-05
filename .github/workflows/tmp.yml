@@ -11,12 +11,12 @@ jobs:
       # Also "Allow GitHub Actions to create and approve pull requests" is required on the repository settings
       pull-requests: write
     steps:
-      # - uses: actions/create-github-app-token@v3
-      #   id: private-tap-github-token
-      #   with:
-      #     app-id: ${{ secrets.GITHUBAPP_ID }}
-      #     private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
-      #     owner: ${{ github.repository_owner }}
+      - uses: actions/create-github-app-token@v3
+        id: private-tap-github-token
+        with:
+          app-id: ${{ secrets.GITHUBAPP_ID }}
+          private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
       # - run: echo "PRIVATE_TAP_GITHUB_TOKEN=${{ steps.private-tap-github-token.outputs.token }}" >> $GITHUB_ENV
       # - run: echo "GITHUB_TOKEN=${{ steps.private-tap-github-token.outputs.token }}" >> $GITHUB_ENV
       # - name: echo env
@@ -24,8 +24,6 @@ jobs:
       - name: Test
         run: gh api /repos/horaguy/aseprite-build
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # env:
-        #   GH_TOKEN: ${{ steps.private-tap-github-token.outputs.token }}
+          GH_TOKEN: ${{ steps.private-tap-github-token.outputs.token }}
       - name: Test2
-        run: curl -sL https://${{ secrets.GITHUB_TOKEN }}@api.github.com/repos/horaguy/aseprite-build
+        run: curl -sL https://${{ steps.private-tap-github-token.outputs.token }}@api.github.com/repos/horaguy/aseprite-build
