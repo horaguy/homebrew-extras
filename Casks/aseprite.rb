@@ -4,11 +4,10 @@ cask "aseprite" do
 
   # url "https://github.com/horaguy/aseprite-build/releases/download/v#{version}/Aseprite-v#{version}-macOS.zip",
   #     header: "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}"
-  url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/388832112",
-    header: [
-      "Accept: application/octet-stream",
-      "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}",
-    ]
+  url "https://#{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}@api.github.com/repos/horaguy/aseprite-build/releases/assets/388832112",
+    header: "Accept: application/octet-stream",
+      # "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}",
+
   
 
   name "Aseprite"
