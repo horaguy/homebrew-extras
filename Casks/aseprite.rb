@@ -1,5 +1,5 @@
 cask "aseprite" do
-  version "1.3.16,388832112"
+  version "1.3.17,388832112"
   sha256 "54edab654452a2797ae5f701a91956c02f72e57f88a89a63ae282692d67330ba"
 
   # According to the EULA of Aseprite, we release built apps only in private repository.
