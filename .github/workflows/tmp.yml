@@ -1,0 +1,27 @@
+name: Tmp test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bump:
+    runs-on: ubuntu-slim
+    permissions:
+      contents: write
+      # Also "Allow GitHub Actions to create and approve pull requests" is required on the repository settings
+      pull-requests: write
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: private-tap-github-token
+        with:
+          app-id: ${{ secrets.GITHUBAPP_ID }}
+          private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+      - run: echo "PRIVATE_TAP_GITHUB_TOKEN=${{ steps.private-tap-github-token.outputs.token }}" >> $GITHUB_ENV
+      - run: echo "GITHUB_TOKEN=${{ steps.private-tap-github-token.outputs.token }}" >> $GITHUB_ENV
+      - name: echo env
+        run: echo PRIVATE_TAP_GITHUB_TOKEN="$PRIVATE_TAP_GITHUB_TOKEN"
+      - name: Test
+        run: gh api /repos/horaguy/aseprite-build
+        env:
+          GH_TOKEN: ${{ steps.private-tap-github-token.outputs.token }}
