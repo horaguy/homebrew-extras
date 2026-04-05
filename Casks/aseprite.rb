@@ -6,6 +6,7 @@ cask "aseprite" do
   # According to the EULA, we release built apps only in private repository. As a result, an personal access token is required.
   # - The personal access token should include permissions to access the private repository.
   # - A personal access token (classic) is needed to use across different owner/organizations.
+  # - A name of the environment variable should be "HOMEBREW_*"
   url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/#{version.csv.second}",
     header: [
       "Authorization: token #{ENV["HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN"]}",
