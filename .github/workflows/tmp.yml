@@ -1,4 +1,4 @@
-name: Bump Formula and Cask
+name: tmptest
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  bump:
+  tmptest:
     runs-on: ubuntu-slim
     steps:
       - name: echo env
