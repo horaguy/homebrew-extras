@@ -13,7 +13,7 @@ jobs:
       - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - uses: Homebrew/actions/setup-homebrew@main
       # Test
+      - run: brew tap --force homebrew/core
       - name: Test
         run: |
-          brew tap homebrew/core
           brew livecheck --quiet --json bat
