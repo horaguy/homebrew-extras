@@ -6,8 +6,8 @@ cask "aseprite" do
   #     header: "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}"
   url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/388832112",
     headers: [
-      "Authorization" => "token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}",
-      "Accept" => "application/octet-stream", 
+      "Accept: application/octet-stream",
+      "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}",
     ]
   
 
