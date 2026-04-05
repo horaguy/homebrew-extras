@@ -22,7 +22,7 @@ jobs:
         with:
           app-id: ${{ secrets.GITHUBAPP_ID }}
           private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
-          # owner: ${{ github.repository_owner }}
+          owner: ${{ github.repository_owner }}
       - run: echo "PRIVATE_TAP_GITHUB_TOKEN=${{ steps.private-tap-github-token.outputs.token }}" >> $GITHUB_ENV
       - uses: actions/checkout@v6
       - name: Configure Git name and email
