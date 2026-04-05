@@ -2,6 +2,10 @@ cask "aseprite" do
   version "1.3.17,388832112" # version,asset_id
   sha256 "54edab654452a2797ae5f701a91956c02f72e57f88a89a63ae282692d67330ba"
 
+  # EULA of Aseprite: https://github.com/aseprite/aseprite/blob/main/EULA.txt
+  # According to the EULA, we release built apps only in private repository. As a result, an personal access token is required.
+  # - The personal access token should include permissions to access the private repository.
+  # - A personal access token (classic) is needed to use across different owner/organizations.
   url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/#{version.csv.second}",
     header: [
       "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}",
@@ -9,7 +13,7 @@ cask "aseprite" do
     ]
 
   name "Aseprite"
-  desc "**PRIVATE CASK** Animated sprite editor & pixel art tool"
+  desc "Animated sprite editor & pixel art tool (***PRIVATE CASK***)"
   homepage "https://www.aseprite.org/"
 
   livecheck do
