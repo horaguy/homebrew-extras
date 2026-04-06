@@ -31,8 +31,6 @@ cask "aseprite" do
     end
   end
 
-  depends_on arch: :arm64
-
   app "Aseprite.app"
 
   postflight do
