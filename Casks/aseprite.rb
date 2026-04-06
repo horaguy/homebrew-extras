@@ -16,8 +16,6 @@ cask "aseprite" do
   desc "Animated sprite editor & pixel art tool (***PRIVATE CASK***)"
   homepage "https://www.aseprite.org/"
 
-  depends_on arch: :arm64
-
   livecheck do
     # Get latest tag and asset ID
     url "https://api.github.com/repos/horaguy/aseprite-build/releases/latest",
@@ -32,6 +30,8 @@ cask "aseprite" do
       "#{tag},#{asset["id"]}"
     end
   end
+
+  depends_on arch: :arm64
 
   app "Aseprite.app"
 
