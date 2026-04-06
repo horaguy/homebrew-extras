@@ -1,5 +1,5 @@
-# HomeBrew-Tap for Extra packages
+# My HomeBrew-Tap
 
 ```shell
-brew tap horaguy/extras
+brew tap horaguy/tap
 ```
