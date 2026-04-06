@@ -16,6 +16,8 @@ cask "aseprite" do
   desc "Animated sprite editor & pixel art tool (***PRIVATE CASK***)"
   homepage "https://www.aseprite.org/"
 
+  depends_on arch: :arm64
+
   livecheck do
     # Get latest tag and asset ID
     url "https://api.github.com/repos/horaguy/aseprite-build/releases/latest",
@@ -26,7 +28,7 @@ cask "aseprite" do
     regex(/v?(\d+(?:\.\d+)+)/i)
     strategy :json do |json, regex|
       tag = json["tag_name"]&.then { |t| t.scan(regex).flatten.first }
-      asset = json["assets"].find { |a| a["name"]&.end_with?("macOS.zip") }
+      asset = json["assets"].find { |a| a["name"]&.end_with?("-macos-aarch64.zip") }
       "#{tag},#{asset["id"]}"
     end
   end
