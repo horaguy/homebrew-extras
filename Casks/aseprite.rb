@@ -4,7 +4,6 @@ cask "aseprite" do
 
   # According to the EULA of Aseprite, we release built apps only in private repository.
   # - https://github.com/aseprite/aseprite/blob/main/EULA.txt
-  # - A personal access token (classic) is needed to use across different owner/organizations.
   # - The name of the environment variable should be "HOMEBREW_*"
 
   url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/#{version.csv.second}",
