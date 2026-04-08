@@ -45,7 +45,6 @@ jobs:
           shopt -s nullglob
           for rb in Casks/*.rb Formula/*.rb; do
             FULL_PKG_NAME="${TAP_NAME}/$(basename "$rb" .rb)"
-
             LATEST_VERSION=$(brew livecheck --quiet --json --newer-only "$FULL_PKG_NAME" | jq -r '.[0].version.latest // empty')
             if [ -z "$LATEST_VERSION" ]; then
               echo "Skip: $FULL_PKG_NAME is already up to date (or livecheck is skipped)"
@@ -56,12 +55,10 @@ jobs:
               Casks)   BUMP_CMD="bump-cask-pr" ;;
               Formula) BUMP_CMD="bump-formula-pr" ;;
             esac
-
             echo "Bumping $FULL_PKG_NAME to $LATEST_VERSION (brew $BUMP_CMD)"
             ret=0
             output=$(brew "$BUMP_CMD" "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" 2>&1) || ret=$?
             echo "$output"
-
             if [ "$ret" -ne 0 ]; then
               echo "Error: Failed to bump $FULL_PKG_NAME"
               exit "$ret"
