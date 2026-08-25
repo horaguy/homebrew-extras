@@ -62,7 +62,7 @@ jobs:
             esac
             echo "Bumping $FULL_PKG_NAME to $LATEST_VERSION (brew $BUMP_CMD)"
             ret=0
-            output=$(brew "$BUMP_CMD" "$FULL_PKG_NAME" --no-browse --no-fork --version "$LATEST_VERSION" 2>&1) || ret=$?
+            output=$(brew "$BUMP_CMD" "$FULL_PKG_NAME" --no-browse --no-fork --no-audit --version "$LATEST_VERSION" 2>&1) || ret=$?
             echo "$output"
             if [ "$ret" -ne 0 ]; then
               echo "Error: Failed to bump $FULL_PKG_NAME"
