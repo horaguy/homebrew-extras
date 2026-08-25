@@ -27,6 +27,8 @@ cask "aseprite" do
     end
   end
 
+  depends_on :macos
+
   app "Aseprite.app"
 
   postflight do
