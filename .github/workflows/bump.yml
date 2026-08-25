@@ -39,6 +39,10 @@ jobs:
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
           echo "TAP_NAME=${{ github.repository_owner }}/${REPO_NAME#homebrew-}" >> $GITHUB_ENV
+
+      # Test
+      - run: brew livecheck $TAP_NAME/aseprites
+
       - run: brew tap $TAP_NAME
       - name: Bump Casks and Formulas
         run: |
