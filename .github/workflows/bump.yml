@@ -42,14 +42,16 @@ jobs:
       - run: brew tap $TAP_NAME
 
       # Test
-      - run: HOMEBREW_GITHUB_API_TOKEN=$HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN brew livecheck $TAP_NAME/aseprite
+      - run: brew livecheck $TAP_NAME/aseprite
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Bump Casks and Formulas
         run: |
           shopt -s nullglob
           for rb in Casks/*.rb Formula/*.rb; do
             FULL_PKG_NAME="${TAP_NAME}/$(basename "$rb" .rb)"
-            LATEST_VERSION=$(HOMEBREW_GITHUB_API_TOKEN=$HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN brew livecheck --quiet --json --newer-only "$FULL_PKG_NAME" | jq -r '.[0].version.latest // empty')
+            LATEST_VERSION=$(HOMEBREW_GITHUB_API_TOKEN=${{ steps.app-token.outputs.token }} brew livecheck --quiet --json --newer-only "$FULL_PKG_NAME" | jq -r '.[0].version.latest // empty')
             if [ -z "$LATEST_VERSION" ]; then
               echo "Skip: $FULL_PKG_NAME is already up to date (or livecheck is skipped)"
               continue
