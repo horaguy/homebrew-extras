@@ -12,12 +12,14 @@ cask "melodyne" do
     regex(/Melodyne\.(\d+(?:\.\d+)*)-Demo\.dmg/)
   end
 
+  depends_on :macos
+
   pkg "Melodyne.#{version}.pkg"
 
   uninstall launchctl: "com.celemony.melodyne",
             quit:      "com.celemony.melodyne",
             script:    {
               executable: "/Applications/Melodyne 5/Melodyne Uninstaller.app/Contents/MacOS/Melodyne Uninstaller",
-              sudo:      true,
+              sudo:       true,
             }
 end

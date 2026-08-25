@@ -11,6 +11,8 @@ cask "huion-k20" do
     skip "It's difficult to get the latest version, and the last update was in 2023. So, we skip livecheck."
   end
 
+  depends_on :macos
+
   app "HuionTablet.app"
 
   uninstall launchctl: "com.huion.HuionTablet",
