@@ -16,16 +16,13 @@ cask "aseprite" do
   homepage "https://www.aseprite.org/"
 
   livecheck do
-    # Get latest tag and asset ID
-    url "https://api.github.com/repos/horaguy/aseprite-build/releases/latest",
-        header: [
-          "Authorization: token #{ENV.fetch("HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN", nil)}",
-          "Accept: application/json",
-        ]
+    url "https://github.com/horaguy/aseprite-build"
     regex(/v?(\d+(?:\.\d+)+)/i)
-    strategy :json do |json, regex|
-      tag = json["tag_name"]&.then { |t| t.scan(regex).flatten.first }
-      asset = json["assets"].find { |a| a["name"]&.end_with?("-macos-aarch64.zip") }
+    strategy :github_latest do |json, regex|
+      tag = json["tag_name"]&.then { |t| t[regex, 1] }
+      asset = json["assets"]&.find { |a| a["name"]&.end_with?("-macos-aarch64.zip") }
+      next if tag.blank? || asset.blank?
+
       "#{tag},#{asset["id"]}"
     end
   end
