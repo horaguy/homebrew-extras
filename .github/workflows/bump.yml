@@ -42,7 +42,7 @@ jobs:
       - run: brew tap $TAP_NAME
 
       # Test
-      - run: brew livecheck $TAP_NAME/aseprites
+      - run: brew livecheck $TAP_NAME/aseprite
 
       - name: Bump Casks and Formulas
         run: |
