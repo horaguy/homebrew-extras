@@ -1,6 +1,6 @@
 cask "live2d" do
-  version "5.3.03"
-  sha256 "d0cbda2a4d41a7eb592fb2dfa7316d133c3161c006e081a74c4bfc2e31a03cdd"
+  version "5.3.04"
+  sha256 "2ee1c534aeb3d671be8278d2a34d41f4d82acfb3fe1ed9216bec76d36f2fd75b"
 
   url "https://cubism.live2d.com/editor/bin/Live2D_Cubism_Setup_#{version}_arm64.pkg"
   name "Live2D Cubism Editor"
