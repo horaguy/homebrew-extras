@@ -4,11 +4,16 @@ cask "aseprite" do
 
   # According to the EULA of Aseprite, we release built apps only in private repository.
   # - https://github.com/aseprite/aseprite/blob/main/EULA.txt
-  # - The name of the environment variable should be "HOMEBREW_*"
+  # - The token needs read access to the private repository, e.g.
+  #   HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew install aseprite
+  # - Only "HOMEBREW_*" variables reach the cask, and Homebrew masks every other
+  #   token-like one and then refuses to follow the API's redirect to the signed
+  #   asset URL (curl: (47) Maximum (0) redirects followed). HOMEBREW_GITHUB_API_TOKEN
+  #   is exempt from that masking, so the download works with the stock strategy.
 
   url "https://api.github.com/repos/horaguy/aseprite-build/releases/assets/#{version.csv.second}",
       header: [
-        "Authorization: token #{ENV.fetch("HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN", nil)}",
+        "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN", nil)}",
         "Accept: application/octet-stream",
       ]
   name "Aseprite"

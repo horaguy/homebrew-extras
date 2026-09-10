@@ -1,5 +1,10 @@
 # REQUIREMENTS:
-# - Enable "Allow GitHub Actions to create and approve pull requests" in https://github.com/[username]/[repository]/settings/actions
+# - A GitHub App (GITHUBAPP_ID / GITHUBAPP_PRIVATE_KEY secrets) installed on this repository
+#   and on the private repositories that casks download from, with permissions:
+#   - Contents: read on the private repositories (to download release assets)
+#   - Contents: write and Pull requests: write on this repository (to push branches and open PRs)
+#   Its token is used as HOMEBREW_GITHUB_API_TOKEN so that both 'brew livecheck' and
+#   'brew bump-*-pr' can read the private repositories.
 
 name: Bump Formula and Cask
 
@@ -15,8 +20,7 @@ jobs:
       contents: write
       pull-requests: write
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For gh-cli
-      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For 'brew bump-*-pr'
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For gh-cli (merging the PR)
     steps:
       - uses: actions/checkout@v6
       - name: Configure Git name and email
@@ -30,8 +34,8 @@ jobs:
           client-id: ${{ secrets.GITHUBAPP_ID }}
           private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-      - name: Set HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN
-        run: echo "HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN=${{ steps.app-token.outputs.token }}" >> $GITHUB_ENV
+      - name: Set HOMEBREW_GITHUB_API_TOKEN (used by 'brew livecheck', 'brew bump-*-pr' and private casks)
+        run: echo "HOMEBREW_GITHUB_API_TOKEN=${{ steps.app-token.outputs.token }}" >> "$GITHUB_ENV"
       - name: Install Homebrew (it's not installed in ubuntu-slim)
         run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - uses: Homebrew/actions/setup-homebrew@main
@@ -45,7 +49,7 @@ jobs:
           shopt -s nullglob
           for rb in Casks/*.rb Formula/*.rb; do
             FULL_PKG_NAME="${TAP_NAME}/$(basename "$rb" .rb)"
-            LATEST_VERSION=$(HOMEBREW_GITHUB_API_TOKEN=$HOMEBREW_PRIVATE_TAP_GITHUB_TOKEN brew livecheck --quiet --json --newer-only "$FULL_PKG_NAME" | jq -r '.[0].version.latest // empty')
+            LATEST_VERSION=$(brew livecheck --quiet --json --newer-only "$FULL_PKG_NAME" | jq -r '.[0].version.latest // empty')
             if [ -z "$LATEST_VERSION" ]; then
               echo "Skip: $FULL_PKG_NAME is already up to date (or livecheck is skipped)"
               continue
