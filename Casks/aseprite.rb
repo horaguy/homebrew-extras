@@ -31,10 +31,11 @@ cask "aseprite" do
 
   app "Aseprite.app"
 
-  postflight do
+  postflight_steps do
     # Remove quarantine attribute to allow unsigned app to run without security warnings
-    system_command "xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{staged_path}/Aseprite.app"]
+    run "/usr/bin/xattr",
+        args: ["-dr", "com.apple.quarantine", "{{staged_path}}/Aseprite.app"],
+        must_succeed: false
   end
 
   zap trash: [
