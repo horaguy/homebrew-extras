@@ -1,6 +1,6 @@
 cask "moho" do
   version "14.4"
-  sha256 "abd8dd9f87c8cb1ef5fce90d393c4f7730e4c53cdfa404bef15f015c7e3e65c6"
+  sha256 :no_check # The mirror URL does not contain the version.
 
   # Mirror Link (primary link is https://delivery.shopifyapps.com/-/b1b5e7614552eeac/15449ea520c87e08
   # but it's not work with CLI)
