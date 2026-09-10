@@ -1,6 +1,6 @@
 cask "aseprite" do
-  version "1.3.18.3,530047571"
-  sha256 "b3b1f896b771d2f0f90d3c705588f6064ecb074af4e57d4c5d1841aab27de542"
+  version "1.3.18.5,554126149"
+  sha256 "2b5d2746feb204b67786488b5fcf9c045d0e10610439afb9d0e59739203ab2e8"
 
   # According to the EULA of Aseprite, we release built apps only in private repository.
   # - https://github.com/aseprite/aseprite/blob/main/EULA.txt
@@ -34,7 +34,7 @@ cask "aseprite" do
   postflight_steps do
     # Remove quarantine attribute to allow unsigned app to run without security warnings
     run "/usr/bin/xattr",
-        args: ["-dr", "com.apple.quarantine", "{{staged_path}}/Aseprite.app"],
+        args:         ["-dr", "com.apple.quarantine", "{{staged_path}}/Aseprite.app"],
         must_succeed: false
   end
 
