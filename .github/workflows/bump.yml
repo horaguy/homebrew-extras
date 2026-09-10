@@ -1,10 +1,7 @@
 # REQUIREMENTS:
-# - A GitHub App (GITHUBAPP_ID / GITHUBAPP_PRIVATE_KEY secrets) installed on this repository
-#   and on the private repositories that casks download from, with permissions:
-#   - Contents: read on the private repositories (to download release assets)
-#   - Contents: write and Pull requests: write on this repository (to push branches and open PRs)
-#   Its token is used as HOMEBREW_GITHUB_API_TOKEN so that both 'brew livecheck' and
-#   'brew bump-*-pr' can read the private repositories.
+# - A GitHub App (GITHUBAPP_ID / GITHUBAPP_PRIVATE_KEY secrets) with
+#   Contents: write + Pull requests: write on this repository and
+#   Contents: read on the private repositories that casks download from.
 
 name: Bump Formula and Cask
 
@@ -34,7 +31,7 @@ jobs:
           client-id: ${{ secrets.GITHUBAPP_ID }}
           private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-      - name: Set HOMEBREW_GITHUB_API_TOKEN (used by 'brew livecheck', 'brew bump-*-pr' and private casks)
+      - name: Set HOMEBREW_GITHUB_API_TOKEN (for 'brew livecheck', 'brew bump-*-pr' and private casks)
         run: echo "HOMEBREW_GITHUB_API_TOKEN=${{ steps.app-token.outputs.token }}" >> "$GITHUB_ENV"
       - name: Install Homebrew (it's not installed in ubuntu-slim)
         run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
